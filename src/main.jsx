@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { createContext, useReducer } from 'react'
+
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
@@ -10,11 +11,15 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
-import About from './About'
+import EditTeam from './EditTeam'
 import App from './App'
 import ErrorPage from './ErrorPage'
 import Header from './Header'
 import Footer from './Footer'
+
+
+
+
 
 
 function Layout() {
@@ -40,13 +45,54 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />
       },
       {
-        path: '/about',
-        element: <About />
+        path: '/edit-team',
+        element: <EditTeam />,
+        errorElement: <ErrorPage />
       },
     ]
   }
 ])
 
+
+
+export const initialPlayerState = {
+  playerOne: "",
+  playerOneHealth: "",
+  playerOneAttack: "",
+  playerOneSpeed: "",
+  playerTwo: "",
+  playerThree: "",
+  playerFour: ""
+}
+
+export const playerReducer = (state, action) => {
+  switch(action.type) {
+    case 'player-one':
+      return { ...state, playerOne: action.name, playerOneHealth: action.health, playerOneAttack: action.attack, playerOneSpeed: action.speed }
+    case 'player-two':
+      return { ...state, playerTwo: action.name }
+    case 'player-three':
+      return { ...state, playerThree: action.name}
+    case 'player-four':
+      return { ...state, playerFour: action.name}
+    default: 
+      throw new Error('Hey!')
+  }
+}
+
+export const reducerContext = createContext()
+
+const ReducerProvider = ({children}) => {
+  const [state, dispatch] = useReducer(playerReducer, initialPlayerState)
+  return (
+    <reducerContext.Provider value={{ state, dispatch }}>
+      {children}
+    </reducerContext.Provider>
+  )
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <ReducerProvider>
+    <RouterProvider router={router} />
+  </ReducerProvider>   
 )
