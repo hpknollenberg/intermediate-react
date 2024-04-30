@@ -57,29 +57,40 @@ const router = createBrowserRouter([
 
 export const initialPlayerState = {
   playerOne: "",
-  playerOneHealth: "",
-  playerOneAttack: "",
-  playerOneSpeed: "",
+  playerOneHealth: "1",
+  playerOneAttack: "1",
+  playerOneSpeed: "1",
+  playerOneErrorMessage: "Please Enter Player One's Information.",
   
   playerTwo: "",
-  playerTwoHealth: "",
-  playerTwoAttack: "",
-  playerTwoSpeed: "",
+  playerTwoHealth: "1",
+  playerTwoAttack: "1",
+  playerTwoSpeed: "1",
+  playerTwoErrorMessage: "Please Enter Player Two's Information.",
 
   playerThree: "",
-  playerFour: ""
+  playerThreeHealth: "1",
+  playerThreeAttack: "1",
+  playerThreeSpeed: "1",
+  playerThreeErrorMessage: "Please Enter Player Three's Information.",
+  
+  playerFour: "",
+  playerFourHealth: "1",
+  playerFourAttack: "1",
+  playerFourSpeed: "1",
+  playerFourErrorMessage: "Please Enter Player Four's Information.",
 }
 
 export const playerReducer = (state, action) => {
   switch(action.type) {
     case 'player-one':
-      return { ...state, playerOne: action.name, playerOneHealth: action.health, playerOneAttack: action.attack, playerOneSpeed: action.speed }
+      return { ...state, playerOne: action.name, playerOneHealth: action.health, playerOneAttack: action.attack, playerOneSpeed: action.speed, playerOneErrorMessage: action.message }
     case 'player-two':
-      return { ...state, playerTwo: action.name, playerTwoHealth: action.health, playerTwoAttack: action.attack, playerTwoSpeed: action.speed }
+      return { ...state, playerTwo: action.name, playerTwoHealth: action.health, playerTwoAttack: action.attack, playerTwoSpeed: action.speed, playerTwoErrorMessage: action.message }
     case 'player-three':
-      return { ...state, playerThree: action.name, playerThreeHealth: action.health, playerThreeAttack: action.attack, playerThreeSpeed: action.speed }
+      return { ...state, playerThree: action.name, playerThreeHealth: action.health, playerThreeAttack: action.attack, playerThreeSpeed: action.speed, playerThreeErrorMessage: action.message }
     case 'player-four':
-      return { ...state, playerFour: action.name, playerFourHealth: action.health, playerFourAttack: action.attack, playerFourSpeed: action.speed }
+      return { ...state, playerFour: action.name, playerFourHealth: action.health, playerFourAttack: action.attack, playerFourSpeed: action.speed, playerFourErrorMessage: action.message }
     default: 
       throw new Error('Hey!')
   }

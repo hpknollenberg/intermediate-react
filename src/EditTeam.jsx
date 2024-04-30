@@ -5,13 +5,21 @@ import { reducerContext } from './main'
 
 function InputScreen (props) {
   return (
-    <div class="p-1">
-        <input type="text" placeholder={props.placeholder} onChange={(e) => props.setPlayer(e.target.value)} />  
-        <input type="text" placeholder="Health" onChange={(e) => props.setPlayerHealth(e.target.value)} />  
-        <input type="text" placeholder="Attack" onChange={(e) => props.setPlayerAttack(e.target.value)} />  
-        <input type="text" placeholder="Speed" onChange={(e) => props.setPlayerSpeed(e.target.value)} />  
-        <button className="m-2" onClick={() => props.dispatch({ 
-          type: props.type, name: props.player, health: props.playerHealth, attack: props.playerAttack, speed: props.playerSpeed})}
+    <div class="p-1 row">
+        <input className="m-1 col-2" type="text" placeholder={props.placeholder} onChange={(e) => props.setPlayer(e.target.value)} />  
+        <input className="m-1 col-1" type="number" min="1" max="5" placeholder="Health" onChange={(e) => props.setPlayerHealth(e.target.value)} />  
+        <input className="m-1 col-1" type="number" min="1" max="5" placeholder="Attack" onChange={(e) => props.setPlayerAttack(e.target.value)} />  
+        <input className="m-1 col-1" type="number" min="1" max="5" placeholder="Speed" onChange={(e) => props.setPlayerSpeed(e.target.value)} />  
+        <button className="m-1 col-1" onClick={() => {
+          if (props.playerHealth > 5 || props.playerHealth < 1 ||
+              props.playerAttack > 5 || props.playerAttack < 1 ||
+              props.playerSpeed > 5 || props.playerSpeed < 1) {
+            props.dispatch({type: props.type, name: props.player, health: 0, attack: 0, speed: 0, message: "Each skill attribute must be between 1 and 5."})
+          } else if (Number(props.playerHealth) + Number(props.playerAttack) + Number(props.playerSpeed) > 10) {
+            props.dispatch({type: props.type, name: props.player, health: 0, attack: 0, speed: 0, message: "Total skill points must not exceed 10."})
+          } else {
+            props.dispatch({type: props.type, name: props.player, health: props.playerHealth, attack: props.playerAttack, speed: props.playerSpeed, message: `${props.player}'s stats look good!`})
+          }}}
         >Add Player</button>      
     </div>
   )
