@@ -60,7 +60,12 @@ export const initialPlayerState = {
   playerOneHealth: "",
   playerOneAttack: "",
   playerOneSpeed: "",
+  
   playerTwo: "",
+  playerTwoHealth: "",
+  playerTwoAttack: "",
+  playerTwoSpeed: "",
+
   playerThree: "",
   playerFour: ""
 }
@@ -70,11 +75,11 @@ export const playerReducer = (state, action) => {
     case 'player-one':
       return { ...state, playerOne: action.name, playerOneHealth: action.health, playerOneAttack: action.attack, playerOneSpeed: action.speed }
     case 'player-two':
-      return { ...state, playerTwo: action.name }
+      return { ...state, playerTwo: action.name, playerTwoHealth: action.health, playerTwoAttack: action.attack, playerTwoSpeed: action.speed }
     case 'player-three':
-      return { ...state, playerThree: action.name}
+      return { ...state, playerThree: action.name, playerThreeHealth: action.health, playerThreeAttack: action.attack, playerThreeSpeed: action.speed }
     case 'player-four':
-      return { ...state, playerFour: action.name}
+      return { ...state, playerFour: action.name, playerFourHealth: action.health, playerFourAttack: action.attack, playerFourSpeed: action.speed }
     default: 
       throw new Error('Hey!')
   }
